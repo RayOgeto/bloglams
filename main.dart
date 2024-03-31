@@ -43,12 +43,18 @@ class ExamEntry extends Student implements Grading {
       return 'F';
     }
   }
+
+  @override
+  void displayDetails() {
+    print('Exam Entry Details:');
+    displayEntryDetails();
+  }
 }
 
 void main() {
   var examEntry = ExamEntry('John Doe', 12345, 'Math', 85.5);
 
-  examEntry.displayEntryDetails();
+  examEntry.displayDetails();
 
   String grade = examEntry.calculateGrade(examEntry.marksObtained);
   print('Grade: $grade');
