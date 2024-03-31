@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class Grading {
   String calculateGrade(double marks);
 }
@@ -51,8 +53,23 @@ class ExamEntry extends Student implements Grading {
   }
 }
 
+ExamEntry initializeFromDataFile(String filePath) {
+  File file = File(filePath);
+  List<String> lines = file.readAsLinesSync();
+
+  List<String> data = lines[0].split(',');
+  String name = data[0];
+  int id = int.parse(data[1]);
+  String subject = data[2];
+  double marksObtained = double.parse(data[3]);
+
+  return ExamEntry(name, id, subject, marksObtained);
+}
+
 void main() {
-  var examEntry = ExamEntry('John Doe', 12345, 'Math', 85.5);
+  String filePath = 'data.txt';
+
+  var examEntry = initializeFromDataFile(filePath);
 
   examEntry.displayDetails();
 

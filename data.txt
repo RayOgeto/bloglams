@@ -1,0 +1,4 @@
+john Doe, 12345, Math, 85.5
+kelvin Kimeu, 5509, english, 71
+dennis ojo, 44334, science, 50
+collins kibet,5657, geography, 41
