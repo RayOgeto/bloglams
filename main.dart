@@ -1,3 +1,7 @@
+abstract class Grading {
+  String calculateGrade(double marks);
+}
+
 class Student {
   String name;
   int id;
@@ -10,7 +14,7 @@ class Student {
   }
 }
 
-class ExamEntry extends Student {
+class ExamEntry extends Student implements Grading {
   String subject;
   double marksObtained;
 
@@ -23,16 +27,17 @@ class ExamEntry extends Student {
     print('Marks Obtained: $marksObtained');
   }
 
-  String calculateGrade() {
-    if (marksObtained >= 80) {
+  @override
+  String calculateGrade(double marks) {
+    if (marks >= 80) {
       return 'A';
-    } else if (marksObtained >= 70) {
+    } else if (marks >= 70) {
       return 'B';
-    } else if (marksObtained >= 60) {
+    } else if (marks >= 60) {
       return 'C';
-    } else if (marksObtained >= 50) {
+    } else if (marks >= 50) {
       return 'D';
-    } else if (marksObtained >= 40) {
+    } else if (marks >= 40) {
       return 'E';
     } else {
       return 'F';
@@ -45,6 +50,6 @@ void main() {
 
   examEntry.displayEntryDetails();
 
-  String grade = examEntry.calculateGrade();
+  String grade = examEntry.calculateGrade(examEntry.marksObtained);
   print('Grade: $grade');
 }
