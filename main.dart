@@ -53,26 +53,37 @@ class ExamEntry extends Student implements Grading {
   }
 }
 
-ExamEntry initializeFromDataFile(String filePath) {
+List<ExamEntry> initializeFromDataFile(String filePath) {
   File file = File(filePath);
   List<String> lines = file.readAsLinesSync();
 
-  List<String> data = lines[0].split(',');
-  String name = data[0];
-  int id = int.parse(data[1]);
-  String subject = data[2];
-  double marksObtained = double.parse(data[3]);
+  List<ExamEntry> entries = [];
 
-  return ExamEntry(name, id, subject, marksObtained);
+  for (var line in lines) {
+    List<String> data = line.split(',');
+    String name = data[0];
+    int id = int.parse(data[1]);
+    String subject = data[2];
+    double marksObtained = double.parse(data[3]);
+
+    entries.add(ExamEntry(name, id, subject, marksObtained));
+  }
+
+  return entries;
 }
 
 void main() {
+  // Path to data file
   String filePath = 'data.txt';
 
-  var examEntry = initializeFromDataFile(filePath);
+  // Initialize ExamEntry instances from data file
+  var examEntries = initializeFromDataFile(filePath);
 
-  examEntry.displayDetails();
-
-  String grade = examEntry.calculateGrade(examEntry.marksObtained);
-  print('Grade: $grade');
+  // Display exam entry details for each student
+  for (var entry in examEntries) {
+    entry.displayDetails();
+    String grade = entry.calculateGrade(entry.marksObtained);
+    print('Grade: $grade');
+    print('-------------------------');
+  }
 }
